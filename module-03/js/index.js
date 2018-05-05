@@ -14,7 +14,6 @@ const addLogin = (login, logins) => {
   if (loginValidity) {
     let loginExist;
     const checkIfLoginExists = (login, logins) => {
-      for (login of logins) {
         if (logins.includes(login)) {
           loginExist = true;
           return loginExist;
@@ -22,7 +21,6 @@ const addLogin = (login, logins) => {
           loginExist = false;
           return loginExist;
         }
-      }
     };
     if (loginExist) {
       alert('Такой логин уже используется!');
