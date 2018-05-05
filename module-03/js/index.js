@@ -2,7 +2,7 @@
 const logins = ['Mango', 'robotGoogles', 'Poly', 'Aj4x1sBozz', 'qwerty123'];
 const addLogin = (login, logins) => {
   let loginValidity = checkLoginValidity(login);
-  let loginExist = checkIfLoginExists(login);
+  let loginExist = checkIfLoginExists(login, logins);
   if (loginValidity) {
     if (loginExist) {
       alert('Такой логин уже используется!');
@@ -15,25 +15,23 @@ const addLogin = (login, logins) => {
   }
 };
 const checkLoginValidity = (login) => {
+  let result
   if (login.length < 4 || login.length > 16) {
-    loginValidity = false;
-    return loginValidity;
+    result = false;
+    return result;
   } else {
-    loginValidity = true;
-    return loginValidity;
+    result = true;
+    return result;
   }
 };
 const checkIfLoginExists = (login, logins) => {
+  let result
   if (logins.includes(login)) {
-    loginExist = true;
-    return loginExist;
+    result = true;
+    return result;
   } else {
-    loginExist = false;
-    return loginExist;
+    result = false;
+    return result;
   }
 };
-addLogin('Mango', logins);
-// checkLoginValidity('Mango');
-// console.log(loginValidity);
-// checkIfLoginExists('Mango', logins);
-// console.log(loginExist);
+addLogin('somelogin', logins);
