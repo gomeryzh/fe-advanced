@@ -3,7 +3,7 @@ const logins = ["Mango", "robotGoogles", "Poly", "Aj4x1sBozz", "qwerty123"];
 const addLogin = (login, logins) => {
   let loginValidity = checkLoginValidity(login);
   let loginExist = checkIfLoginExists(login, logins);
-  if (loginValidity === false) {
+  if (!loginValidity) {
     alert("Ошибка! Логин должен быть от 4 до 16 символов");
     return;
   }
@@ -13,18 +13,12 @@ const addLogin = (login, logins) => {
   }
   logins.push(login);
   alert("Логин успешно добавлен!");
-  return;
 };
 const checkLoginValidity = login => {
-  if (login.length < 4 || login.length > 16) {
-    return false;
-  }
-  return true;
+  return login.length < 4 || login.length > 16; 
 };
+
 const checkIfLoginExists = (login, logins) => {
-  if (logins.includes(login)) {
-    return true;
-  }
-  return false;
+  return logins.includes(login);
 };
 addLogin("Man", logins);
