@@ -16,42 +16,22 @@ const order = {
   cheese: 1
 };
 
-const Cashier = function({
+const Cashier = function(
   name = "cashier",
-  products = {
-    bread: 10,
-    milk: 15,
-    apples: 20,
-    chicken: 50,
-    pork: 80,
-    cheese: 60,
-    tea: 20,
-    candy: 25
-  },
-  totalPrice = 0,
-  customerMoney = 0,
-  changeAmount = 0
-}) {
+  products = {},
+) {
   this.name = name;
   this.products = products;
-  this.totalPrice = totalPrice;
-  this.customerMoney = customerMoney;
-  this.changeAmount = changeAmount;
+  this.totalPrice = 0,
+  this.customerMoney = 0,
+  this.changeAmount = 0
 
   this.countTotalPrice = function(order) {
-    let keyToFind;
-    let multiply;
     let orderPrice = 0;
-    for (let elem in order) {
-      keyToFind = elem;
-      for (let key in this.products) {
-        const hasOwnKey = this.products.hasOwnProperty(key);
-        const isMatch = key === keyToFind;
-        if (hasOwnKey && isMatch) {
-          let multiply = order[elem] * this.products[key];
-          orderPrice += multiply;
-        }
-      }
+    let orderKeys = Object.keys(order);
+    for (let key of orderKeys) {
+      let multiply = order[key] * this.products[key];
+      orderPrice += multiply;
     }
     this.totalPrice = orderPrice;
   };
@@ -72,6 +52,7 @@ const Cashier = function({
       validInput = isNumber && inRange;
       if (clientInput === null) {
         this.customerMoney = null;
+        // console.log(clientInput);
         return;
       }
       if (validInput) {
@@ -84,7 +65,6 @@ const Cashier = function({
 
   this.countChange = function() {
     this.changeAmount = this.customerMoney - this.totalPrice;
-    return this.changeAmount;
   };
 
   this.reset = function() {
@@ -99,6 +79,7 @@ const Cashier = function({
 
     if (this.customerMoney === null) {
       alert("Очень жаль, что-то пошло не так, приходите еще");
+      this.reset();
       return;
     }
     this.countChange();
@@ -108,7 +89,13 @@ const Cashier = function({
   };
 };
 
-const vova = new Cashier("Vova", products, 0, 0, 0);
-
+const vova = new Cashier("Vova", products);
+// console.log(products);
+// console.log(vova);
 vova.serve(order);
-console.log(vova);
+// vova.countTotalPrice(order);
+// vova.getCustomerMoney();
+// console.log(this.customerMoney);
+
+
+// console.log(this.totalPrice);
