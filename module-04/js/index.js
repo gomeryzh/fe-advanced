@@ -27,13 +27,10 @@ const Cashier = function(
   this.changeAmount = 0
 
   this.countTotalPrice = function(order) {
-    let orderPrice = 0;
     let orderKeys = Object.keys(order);
     for (let key of orderKeys) {
-      let multiply = order[key] * this.products[key];
-      orderPrice += multiply;
+      this.totalPrice += order[key] * this.products[key]; 
     }
-    this.totalPrice = orderPrice;
   };
 
   this.getCustomerMoney = function() {
@@ -51,9 +48,7 @@ const Cashier = function(
       inRange = clientInputAsNumber >= this.totalPrice;
       validInput = isNumber && inRange;
       if (clientInput === null) {
-        this.customerMoney = null;
-        // console.log(clientInput);
-        return;
+        return null;
       }
       if (validInput) {
         this.customerMoney = clientInputAsNumber;
@@ -75,9 +70,9 @@ const Cashier = function(
 
   this.serve = function(order) {
     this.countTotalPrice(order);
-    this.getCustomerMoney();
+    const result = this.getCustomerMoney();
 
-    if (this.customerMoney === null) {
+    if (result === null) {
       alert("Очень жаль, что-то пошло не так, приходите еще");
       this.reset();
       return;
@@ -90,12 +85,13 @@ const Cashier = function(
 };
 
 const vova = new Cashier("Vova", products);
-// console.log(products);
-// console.log(vova);
+
+console.log(vova);
 vova.serve(order);
-// vova.countTotalPrice(order);
-// vova.getCustomerMoney();
-// console.log(this.customerMoney);
+vova.getCustomerMoney();
+console.log(vova);
+console.log(this.customerMoney);
 
 
-// console.log(this.totalPrice);
+
+
