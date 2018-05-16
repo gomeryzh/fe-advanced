@@ -86,11 +86,9 @@ const Cashier = function(
 
 const vova = new Cashier("Vova", products);
 
-console.log(vova);
 vova.serve(order);
-vova.getCustomerMoney();
 console.log(vova);
-console.log(this.customerMoney);
+
 
 
 
