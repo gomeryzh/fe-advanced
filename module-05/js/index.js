@@ -10,10 +10,7 @@ const SocialBook = function(users = [], posts = {}) {
 
   this.getUserStatus = userId => {
     const correctUser = this.users.find(user => user.id === userId);
-    if (correctUser.isActive) {
-      return "active";
-    }
-    return "inactive";
+    return correctUser.isActive ? "active" : "inactive";
   };
 
   this.addUser = user => {
