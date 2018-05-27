@@ -1,7 +1,7 @@
-// "use strict";
+"use strict";
 
 class Hamburger {
-  constructor(size, stuffing) {
+  constructor({ size, stuffing }) {
     this.size = size;
     this.stuffing = stuffing;
     this.toppings = [];
@@ -9,7 +9,7 @@ class Hamburger {
   static SIZE_SMALL = "SIZE_SMALL";
   static SIZE_LARGE = "SIZE_LARGE";
 
-static SIZES = {
+  static SIZES = {
     [Hamburger.SIZE_SMALL]: {
       price: 30,
       calories: 50
@@ -20,7 +20,7 @@ static SIZES = {
     }
   };
 
-static STUFFING_CHEESE = "STUFFING_CHEESE";
+  static STUFFING_CHEESE = "STUFFING_CHEESE";
   static STUFFING_SALAD = "STUFFING_SALAD";
   static STUFFING_MEAT = "STUFFING_MEAT";
 
@@ -53,63 +53,84 @@ static STUFFING_CHEESE = "STUFFING_CHEESE";
     }
   };
 
-  addTopping (topping) {
-    this.toppings.push(topping)
-  };
+  addTopping(topping) {
+    const hasTopping = this.toppings.find(key => key === topping);
+    if (hasTopping) {
+      console.log(`You allready have ${topping}.`);
+      return;
+    }
+    this.toppings.push(topping);
+  }
 
-  removeTopping (topping) {
-    this.toppings.filter(value => value !== topping)
-  };
+  removeTopping(topping) {
+    this.toppings = this.toppings.filter(value => value !== topping);
+  }
 
-  getToppings () {
+  getToppings() {
     return this.toppings;
-  };
+  }
 
-  getSize () {
+  getSize() {
     return this.size;
-  };
+  }
 
-  getStuffing () {
+  getStuffing() {
     return this.stuffing;
-  };
+  }
 
-  calculatePrice () {
+  calculatePrice() {
     const sizePrice = Hamburger.SIZES[this.size].price;
     const stuffingPrice = Hamburger.STUFFINGS[this.stuffing].price;
-    const getTotalToppingsPrice = this.toppings.reduce((acc, value) => acc + Hamburger.TOPPINGS[value].price, 0);
+    const getTotalToppingsPrice = this.toppings.reduce(
+      (acc, value) => acc + Hamburger.TOPPINGS[value].price,
+      0
+    );
     const totalPrice = sizePrice + stuffingPrice + getTotalToppingsPrice;
     return totalPrice;
-  };
+  }
 
-  calculateCalories () {
+  calculateCalories() {
     const sizeCalories = Hamburger.SIZES[this.size].calories;
     const stuffingCalories = Hamburger.STUFFINGS[this.stuffing].calories;
-    const getTotalToppingsCalories = this.toppings.reduce((acc, value) => acc + Hamburger.TOPPINGS[value].calories, 0);
-    const totalCalories = sizeCalories + stuffingCalories + getTotalToppingsCalories;
+    const getTotalToppingsCalories = this.toppings.reduce(
+      (acc, value) => acc + Hamburger.TOPPINGS[value].calories,
+      0
+    );
+    const totalCalories =
+      sizeCalories + stuffingCalories + getTotalToppingsCalories;
     return totalCalories;
-  };
+  }
 }
 
-const hamburger = new Hamburger({ 
-  size: Hamburger.SIZE_SMALL, 
+const hamburger = new Hamburger({
+  size: Hamburger.SIZE_SMALL,
   stuffing: Hamburger.STUFFING_CHEESE
 });
 console.log(hamburger);
 
-// hamburger.addTopping(Hamburger.TOPPING_SPICE);
-// console.log(hamburger);
+// Добавка из приправы
+hamburger.addTopping(Hamburger.TOPPING_SPICE);
 
-// console.log("Price: ", hamburger.calculatePrice());
+// Спросим сколько там калорий
+console.log("Calories: ", hamburger.calculateCalories());
 
-// console.log("Calories: ", hamburger.calculateCalories());
+// Сколько стоит?
+console.log("Price: ", hamburger.calculatePrice());
 
-// hamburger.addTopping(Hamburger.TOPPING_SAUCE);
-// console.log(hamburger);
+// Я тут передумал и решил добавить еще соус
+hamburger.addTopping(Hamburger.TOPPING_SAUCE);
 
-// console.log("Price with sauce: ", hamburger.calculatePrice());
+// А сколько теперь стоит?
+console.log("Price with sauce: ", hamburger.calculatePrice());
 
-// console.log("Is hamburger large: ", hamburger.getSize() === Hamburger.SIZE_LARGE); // -> false
+// Проверить, большой ли гамбургер?
+console.log(
+  "Is hamburger large: ",
+  hamburger.getSize() === Hamburger.SIZE_LARGE
+); // -> false
 
-// hamburger.removeTopping(Hamburger.TOPPING_SPICE);
+// Убрать добавку
+hamburger.removeTopping(Hamburger.TOPPING_SPICE);
 
-// console.log("Hamburger has %d toppings", hamburger.getToppings().length); // 1
+// Смотрим сколько добавок
+console.log("Hamburger has %d toppings", hamburger.getToppings().length); // 1
