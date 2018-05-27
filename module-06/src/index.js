@@ -9,7 +9,7 @@ class Hamburger {
   static SIZE_SMALL = "SIZE_SMALL";
   static SIZE_LARGE = "SIZE_LARGE";
 
-  static SIZES = {
+static SIZES = {
     [this.SIZE_SMALL]: {
       price: 30,
       calories: 50
@@ -20,7 +20,7 @@ class Hamburger {
     }
   };
 
-  static STUFFING_CHEESE = "STUFFING_CHEESE";
+static STUFFING_CHEESE = "STUFFING_CHEESE";
   static STUFFING_SALAD = "STUFFING_SALAD";
   static STUFFING_MEAT = "STUFFING_MEAT";
 
