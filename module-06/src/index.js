@@ -76,16 +76,16 @@ static STUFFING_CHEESE = "STUFFING_CHEESE";
   calculatePrice () {
     const sizePrice = Hamburger.SIZES[this.size].price;
     const stuffingPrice = Hamburger.STUFFINGS[this.stuffing].price;
-    const toppingPrice = Hamburger.TOPPINGS[this.topping].price;
-    const totalPrice = sizePrice + stuffingPrice + toppingPrice;
+    const getTotalToppingsPrice = this.toppings.reduce((acc, value) => acc + Hamburger.TOPPINGS[value].price, 0);
+    const totalPrice = sizePrice + stuffingPrice + getTotalToppingsPrice;
     return totalPrice;
   };
 
   calculateCalories () {
     const sizeCalories = Hamburger.SIZES[this.size].calories;
     const stuffingCalories = Hamburger.STUFFINGS[this.stuffing].calories;
-    const toppingCalories = Hamburger.TOPPINGS[this.topping].calories;
-    const totalCalories = sizeCalories + stuffingCalories + toppingCalories;
+    const getTotalToppingsCalories = this.toppings.reduce((acc, value) => acc + Hamburger.TOPPINGS[value].calories, 0);
+    const totalCalories = sizeCalories + stuffingCalories + getTotalToppingsCalories;
     return totalCalories;
   };
 }
