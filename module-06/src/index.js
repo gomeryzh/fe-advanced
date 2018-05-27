@@ -1,4 +1,4 @@
-"use strict";
+// "use strict";
 
 class Hamburger {
   constructor(size, stuffing) {
@@ -10,11 +10,11 @@ class Hamburger {
   static SIZE_LARGE = "SIZE_LARGE";
 
 static SIZES = {
-    [this.SIZE_SMALL]: {
+    [Hamburger.SIZE_SMALL]: {
       price: 30,
       calories: 50
     },
-    [this.SIZE_LARGE]: {
+    [Hamburger.SIZE_LARGE]: {
       price: 50,
       calories: 100
     }
@@ -25,15 +25,15 @@ static STUFFING_CHEESE = "STUFFING_CHEESE";
   static STUFFING_MEAT = "STUFFING_MEAT";
 
   static STUFFINGS = {
-    [this.STUFFING_CHEESE]: {
+    [Hamburger.STUFFING_CHEESE]: {
       price: 15,
       calories: 20
     },
-    [this.STUFFING_SALAD]: {
+    [Hamburger.STUFFING_SALAD]: {
       price: 20,
       calories: 5
     },
-    [this.STUFFING_MEAT]: {
+    [Hamburger.STUFFING_MEAT]: {
       price: 35,
       calories: 15
     }
@@ -43,11 +43,11 @@ static STUFFING_CHEESE = "STUFFING_CHEESE";
   static TOPPING_SAUCE = "TOPPING_SAUCE";
 
   static TOPPINGS = {
-    [this.TOPPING_SPICE]: {
+    [Hamburger.TOPPING_SPICE]: {
       price: 10,
       calories: 0
     },
-    [this.TOPPING_SAUCE]: {
+    [Hamburger.TOPPING_SAUCE]: {
       price: 15,
       calories: 5
     }
@@ -58,7 +58,7 @@ static STUFFING_CHEESE = "STUFFING_CHEESE";
   };
 
   removeTopping (topping) {
-    this.toppings.filter(topping => this.toppings[topping] !== topping)
+    this.toppings.filter(value => value !== topping)
   };
 
   getToppings () {
@@ -90,7 +90,7 @@ static STUFFING_CHEESE = "STUFFING_CHEESE";
   };
 }
 
-const hamburger2 = new Hamburger({ 
+const hamburger = new Hamburger({ 
   size: Hamburger.SIZE_SMALL, 
   stuffing: Hamburger.STUFFING_CHEESE
 });
