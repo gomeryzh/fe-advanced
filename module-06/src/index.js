@@ -53,23 +53,27 @@ class Hamburger {
     }
   };
 
-  addTopping = topping => {this.toppings.push(topping)};
+  addTopping (topping) {
+    this.toppings.push(topping)
+  };
 
-  removeTopping = topping => {this.toppings.filter(topping => this.toppings[topping] !== topping)};
+  removeTopping (topping) {
+    this.toppings.filter(topping => this.toppings[topping] !== topping)
+  };
 
-  getToppings = () => {
+  getToppings () {
     return this.toppings;
   };
 
-  getSize = () => {
+  getSize () {
     return this.size;
   };
 
-  getStuffing = () => {
+  getStuffing () {
     return this.stuffing;
   };
 
-  calculatePrice = () => {
+  calculatePrice () {
     const sizePrice = Hamburger.SIZES[this.size].price;
     const stuffingPrice = Hamburger.STUFFINGS[this.stuffing].price;
     const toppingPrice = Hamburger.TOPPINGS[this.topping].price;
@@ -77,7 +81,7 @@ class Hamburger {
     return totalPrice;
   };
 
-  calculateCalories = () => {
+  calculateCalories () {
     const sizeCalories = Hamburger.SIZES[this.size].calories;
     const stuffingCalories = Hamburger.STUFFINGS[this.stuffing].calories;
     const toppingCalories = Hamburger.TOPPINGS[this.topping].calories;
