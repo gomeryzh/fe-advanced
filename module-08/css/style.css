@@ -1,0 +1,17 @@
+body {
+    min-height: 100vh;
+}
+img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+.preview {
+    display: flex;
+    justify-content: space-between;
+}
+.preview li {
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+}
