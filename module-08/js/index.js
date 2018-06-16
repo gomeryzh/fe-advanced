@@ -32,7 +32,6 @@ const galleryItems = [{
 ];
 
 const imageGalleryRoot = document.querySelector('.js-image-gallery');
-console.log(imageGalleryRoot);
 
 const galleryMarkup = createGalleryMarkup();
 imageGalleryRoot.innerHTML = galleryMarkup;
@@ -40,7 +39,6 @@ imageGalleryRoot.innerHTML = galleryMarkup;
 const listItemsMarkup = createGallery(galleryItems);
 const previewList = document.querySelector('.preview');
 previewList.innerHTML = listItemsMarkup;
-console.log(previewList);
 previewList.addEventListener('click', changeMainImg);
 
 function createGalleryMarkup() {
@@ -55,8 +53,6 @@ function createGallery(gallery) {
     return gallery.reduce((acc, galleryItem) => acc + createListItemsMarkup(galleryItem), '');
 };
 
-
-
 function createListItemsMarkup({
     preview,
     fullview,
@@ -70,10 +66,9 @@ function changeMainImg({
 }) {
     const nodeName = target.nodeName;
     if (nodeName !== 'IMG') return;
+    event.preventDefault;
     const mainImg = document.querySelector('.fullview > img');
-    console.log(mainImg);
-    let mainImgSrc = mainImg.src;
-    console.log(mainImgSrc);
-    let targetImgSrc = target.dataset.fullview;
-    console.log(mainImgSrc = targetImgSrc);
+    const targetImgSrc = target.dataset.fullview;
+    const newTargetImg = mainImg.setAttribute('src', targetImgSrc);
+    return newTargetImg;
 };
