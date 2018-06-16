@@ -1,20 +1,23 @@
 body {
     min-height: 100vh;
 }
+
 img {
     width: 100%;
     height: auto;
     display: block;
-  }
+}
+
 .preview {
     display: flex;
     justify-content: space-between;
+    list-style: none;
+    border: 2px solid #a4a6a8;
+    padding: 0;
 }
+
 .preview li {
     padding: 10px;
     text-align: center;
     margin: auto;
-}
-ul {
-    list-style: none;
 }
