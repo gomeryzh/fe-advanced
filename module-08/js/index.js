@@ -41,6 +41,8 @@ const previewList = document.querySelector('.preview');
 previewList.innerHTML = listItemsMarkup;
 previewList.addEventListener('click', changeMainImg);
 
+const mainImg = document.querySelector('.fullview > img');
+
 function createGalleryMarkup() {
     return `<div class="fullview">
             <!-- Если выбран первый элемент из preview -->
@@ -67,8 +69,6 @@ function changeMainImg({
     const nodeName = target.nodeName;
     if (nodeName !== 'IMG') return;
     event.preventDefault;
-    const mainImg = document.querySelector('.fullview > img');
     const targetImgSrc = target.dataset.fullview;
-    const newTargetImg = mainImg.setAttribute('src', targetImgSrc);
-    return newTargetImg;
+    mainImg.setAttribute('src', targetImgSrc);
 };
