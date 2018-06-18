@@ -32,24 +32,19 @@ const galleryItems = [
   }
 ];
 
+appendGalleryMarkup();
+
 function appendGalleryMarkup() {
   const fullview = createFullview();
-  const preview = createPreview();
+  const preview = createPreview(galleryItems);
   const markup = fullview + preview;
 
   const galleryRoot = document.querySelector(".js-image-gallery");
   galleryRoot.innerHTML = markup;
+
+  const previewList = document.querySelector(".preview");
+  previewList.addEventListener("click", changeMainImg);
 }
-
-// const galleryMarkup = createGalleryMarkup();
-// galleryRoot.innerHTML = galleryMarkup;
-
-// const listItemsMarkup = createGallery(galleryItems);
-// const previewList = document.querySelector(".preview");
-// previewList.innerHTML = listItemsMarkup;
-// previewList.addEventListener("click", changeMainImg);
-
-const mainImg = document.querySelector(".fullview > img");
 
 function createFullview() {
   return `<div class="fullview">
@@ -59,10 +54,6 @@ function createFullview() {
 }
 
 function createPreview(gallery) {
-//   const previewList = document.createElement("ul");
-//   previewList.classList.add("preview");
-//   galleryRoot.appendChild(previewList);
-  const previewList = `<ul class="preview"></ul>`;
   const listItems = gallery.reduce(
     (acc, galleryItem) =>
       acc +
@@ -71,27 +62,11 @@ function createPreview(gallery) {
       } alt=${galleryItem.alt}></li>`,
     ""
   );
-  console.log(previewList.innerHTML = listItems);
+  return `<ul class="preview">${listItems}</ul>`;
 }
-createPreview(galleryItems);
-
-
-// function createGallery(gallery) {
-//     const previewList = document.createElement('ul');
-//     previewList.classList.add('preview');
-//     galleryRoot.appendChild(previewList);
-//     return gallery.reduce((acc, galleryItem) => acc + createListItemsMarkup(galleryItem), '');
-// };
-
-// function createListItemsMarkup({
-//     preview,
-//     fullview,
-//     alt
-// }) {
-//     return `<li><img src=${preview} data-fullview=${fullview} alt=${alt}></li>`;
-// };
 
 function changeMainImg({ target }) {
+  const mainImg = document.querySelector(".fullview > img");
   const nodeName = target.nodeName;
   if (nodeName !== "IMG") return;
   const targetImgSrc = target.dataset.fullview;
