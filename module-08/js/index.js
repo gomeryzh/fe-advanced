@@ -31,10 +31,10 @@ const galleryItems = [{
     },
 ];
 
-const imageGalleryRoot = document.querySelector('.js-image-gallery');
+const galleryRoot = document.querySelector('.js-image-gallery');
 
 const galleryMarkup = createGalleryMarkup();
-imageGalleryRoot.innerHTML = galleryMarkup;
+galleryRoot.innerHTML = galleryMarkup;
 
 const listItemsMarkup = createGallery(galleryItems);
 const previewList = document.querySelector('.preview');
@@ -47,11 +47,13 @@ function createGalleryMarkup() {
     return `<div class="fullview">
             <!-- Если выбран первый элемент из preview -->
             <img src="img/fullview-1.jpeg" alt="alt text 1">
-        </div> 
-        <ul class="preview"></ul>`;
+        </div>`;
 };
 
 function createGallery(gallery) {
+    const previewList = document.createElement('ul');
+    previewList.classList.add('preview');
+    galleryRoot.appendChild(previewList);
     return gallery.reduce((acc, galleryItem) => acc + createListItemsMarkup(galleryItem), '');
 };
 
