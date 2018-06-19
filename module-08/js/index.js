@@ -71,4 +71,12 @@ function changeMainImg({ target }) {
   if (nodeName !== "IMG") return;
   const targetImgSrc = target.dataset.fullview;
   mainImg.setAttribute("src", targetImgSrc);
+  const previewImages = document.querySelectorAll('.preview img');
+  previewImages.forEach(previewImg => {
+    if(previewImg !== target) {
+      previewImg.classList.remove("active__img");
+    } else {
+      previewImg.classList.add("active__img");
+    }
+  })
 }

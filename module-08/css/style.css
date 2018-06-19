@@ -21,3 +21,6 @@ img {
     text-align: center;
     margin: auto;
 }
+.active__img {
+    border: 3px solid #b6636e;
+}
