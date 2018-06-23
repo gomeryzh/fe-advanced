@@ -1,21 +1,27 @@
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  .stopwatch .btn {
-    font-family: inherit;
-    cursor: pointer;
-    min-width: 88px;
-    min-height: 36px;
-    text-transform: uppercase;
-  }
-  
-  .stopwatch .time {
-    text-align: center;
-    font-size: 64px;
-    margin: 0;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.stopwatch .btn {
+  font-family: inherit;
+  cursor: pointer;
+  min-width: 88px;
+  min-height: 36px;
+  text-transform: uppercase;
+}
+
+.stopwatch .time {
+  text-align: center;
+  font-size: 64px;
+  margin: 0;
+}
+button {
+  outline: none;
+}
+.laps {
+  list-style: none;
+}
