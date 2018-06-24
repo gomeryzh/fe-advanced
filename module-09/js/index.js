@@ -4,7 +4,7 @@ const time = document.querySelector("p.js-time");
 const startBtn = document.querySelector("button.js-start");
 const pauseBtn = document.querySelector("button.js-pause");
 const stopBtn = document.querySelector("button.js-reset");
-const laps = document.querySelector("ul.js-laps");
+
 const body = document.querySelector('body');
 
 
@@ -28,6 +28,7 @@ class Watch {
   }
 
   createElements(elem) {
+    const root = document.createElement("div");
     
     const timer = document.createElement("div");
     timer.classList.add("stopwatch");
@@ -53,9 +54,8 @@ class Watch {
     lapsList.classList.add("js-laps");
 
     timer.append(time, startBtn, pauseBtn, stopBtn);
-    console.log(elem);
-    elem.append(timer, lapsList);
-    return elem;
+    root.append(timer, lapsList);
+    return root;
   }
   
   showTime({ min, sec, ms }) {
