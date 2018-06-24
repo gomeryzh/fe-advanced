@@ -9,14 +9,15 @@ const body = document.querySelector('body');
 
 
 class Watch {
-  constructor(elem) {
+  constructor(elem, {
+    showTime
+  }) {
     this.elem = elem;
-    this.value = 0;
     this.isActive = false;
     this.watchId = null;
     this.startTime = null;
     this.deltaTime = null;
-    this.showTime = (() => showTime());
+    this.showTime = showTime;
     this.createSecondomizer();
   }
 
@@ -29,7 +30,7 @@ class Watch {
 
   createElements(elem) {
     const root = document.createElement("div");
-    
+
     const timer = document.createElement("div");
     timer.classList.add("stopwatch");
 
@@ -57,10 +58,6 @@ class Watch {
     root.append(timer, lapsList);
     return root;
   }
-  
-  showTime({ min, sec, ms }) {
-    time.textContent = `${min}:${sec}.${ms}`;
-  }
 
   startTimer() {
     if (!this.isActive) {
@@ -73,7 +70,11 @@ class Watch {
         const min = myTime.getMinutes();
         const sec = myTime.getSeconds();
         const ms = Number.parseInt(myTime.getMilliseconds() / 100);
-        this.showTime({ min, sec, ms });
+        this.showTime({
+          min,
+          sec,
+          ms
+        });
       }, 100);
     }
   }
@@ -86,7 +87,11 @@ class Watch {
       this.watchId = null;
       this.startTime = null;
       this.deltaTime = 0;
-      this.showTime({ min: 0, sec: 0, ms: 0 });
+      this.showTime({
+        min: 0,
+        sec: 0,
+        ms: 0
+      });
     }
   }
 
@@ -96,7 +101,11 @@ class Watch {
       clearInterval(this.watchId);
       this.watchId = null;
       this.startTime = Date.now() - this.deltaTime;
-      this.showTime({ min, sec, ms });
+      this.showTime({
+        min,
+        sec,
+        ms
+      });
     }
   }
 
@@ -105,11 +114,11 @@ class Watch {
   }
 
   onPause() {
-     pauseBtn.addEventListener('click', () => {
-       this.isActive = false;
-       this.pauseTimer();
-       pauseBtn.textContent = "Continue";
-     })
+    pauseBtn.addEventListener('click', () => {
+      this.isActive = false;
+      this.pauseTimer();
+      pauseBtn.textContent = "Continue";
+    })
   }
 
   onContinue() {
@@ -128,7 +137,7 @@ class Watch {
   onLap() {
     stopBtn.addEventListener("click", () => {
       if (stopBtn.textContent === "Reset") {
-       
+
         const newLap = document.createElement("li");
         newLap.textContent = time.textContent;
         laps.appendChild(newLap);
@@ -138,4 +147,14 @@ class Watch {
   }
 }
 
-const watch = new Watch(body);
+function showTime({
+  min,
+  sec,
+  ms
+}) {
+  time.textContent = `${min}:${sec}.${ms}`;
+}
+
+const watch = new Watch(body, {
+  showTime
+});
