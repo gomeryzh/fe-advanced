@@ -5,50 +5,64 @@ const startBtn = document.querySelector("button.js-start");
 const pauseBtn = document.querySelector("button.js-pause");
 const stopBtn = document.querySelector("button.js-reset");
 const laps = document.querySelector("ul.js-laps");
+const body = document.querySelector('body');
 
 
 class Watch {
-  constructor({ showTime }) {
+  constructor(elem) {
+    this.elem = elem;
     this.value = 0;
     this.isActive = false;
     this.watchId = null;
     this.startTime = null;
     this.deltaTime = null;
-    this.showTime = showTime;
+    this.showTime = (() => showTime());
+    this.createSecondomizer();
   }
 
-  createMarkup() {
-    const timer = document.createElement('div');
-    timer.classList.add('stopwatch');
+  createSecondomizer() {
+    const elements = this.createElements(this.elem);
+    this.elem.appendChild(elements);
 
-    const time = document.createElement('p');
-    time.classList.add('time');
-    time.classList.add('js-time');
-    time.textContent = '00:00.0';
-
-    const startBtn = document.createElement('button');
-    startBtn.classList.add('btn');
-    startBtn.classList.add('js-btn');
-
-    const pauseBtn = document.createElement('button');
-    pauseBtn.classList.add('btn');
-    pauseBtn.classList.add('js-btn');
-
-    const stopBtn = document.createElement('button');
-    stopBtn.classList.add('btn');
-    stopBtn.classList.add('js-btn');
-
-
-    // <div class="stopwatch">
-    //     <p class="time js-time">00:00.0</p>
-    //     <button class="btn js-start">Start</button>
-    //     <button class="btn js-pause">Pause</button>
-    //     <button class="btn js-reset">Reset</button>
-    // </div>
-    // <ul class="laps js-laps"></ul>
+    this.onStart;
   }
 
-  onStart() {
+  createElements(elem) {
+    
+    const timer = document.createElement("div");
+    timer.classList.add("stopwatch");
+
+    const time = document.createElement("p");
+    time.classList.add("time");
+    time.classList.add("js-time");
+    time.textContent = "00:00.0";
+
+    const startBtn = document.createElement("button");
+    startBtn.classList.add("btn");
+    startBtn.classList.add("js-btn");
+    startBtn.textContent = "Start";
+
+    const pauseBtn = startBtn.cloneNode(false);
+    pauseBtn.textContent = "Pause";
+
+    const stopBtn = startBtn.cloneNode(false);
+    stopBtn.textContent = "Reset";
+
+    const lapsList = document.createElement("ul");
+    lapsList.classList.add("laps");
+    lapsList.classList.add("js-laps");
+
+    timer.append(time, startBtn, pauseBtn, stopBtn);
+    console.log(elem);
+    elem.append(timer, lapsList);
+    return elem;
+  }
+  
+  showTime({ min, sec, ms }) {
+    time.textContent = `${min}:${sec}.${ms}`;
+  }
+
+  startTimer() {
     if (!this.isActive) {
       this.startTime = Date.now();
       this.isActive = true;
@@ -60,68 +74,68 @@ class Watch {
         const sec = myTime.getSeconds();
         const ms = Number.parseInt(myTime.getMilliseconds() / 100);
         this.showTime({ min, sec, ms });
-        
       }, 100);
     }
   }
 
-  onPause() {
+  stopTimer() {
     if (this.isActive) {
       this.isActive = false;
-      pauseBtn.textContent = "Continue";
-      clearInterval(this.watchId);
-      this.watchId = null;
-      this.startTime = Date.now() - this.deltaTime;
-      
-      // this.deltaTime = 0;
-    } else {
-      
-      pauseBtn.textContent = "Pause";
-      this.isActive = true;
-      
-      this.watchId = setInterval(() => {
-        this.deltaTime = Date.now() - this.startTime;
-        
-        const continueTime = new Date(this.deltaTime);
-        const min = continueTime.getMinutes();
-        const sec = continueTime.getSeconds();
-        const ms = Number.parseInt(continueTime.getMilliseconds() / 100);
-        this.showTime({ min, sec, ms });
-      }, 100);
-    }
-  }
 
-  onStop() {
-    if(this.isActive) {
-      stopBtn.textContent = 'Lap'; 
-      this.isActive = false;
-        
       clearInterval(this.watchId);
       this.watchId = null;
       this.startTime = null;
       this.deltaTime = 0;
       this.showTime({ min: 0, sec: 0, ms: 0 });
-    } else {
-      stopBtn.textContent = 'Reset';
-      this.isActive = true;
-      
-      const newLap = document.createElement('li');
-      newLap.textContent = time.textContent;
-      laps.appendChild(newLap);
     }
-    
-    
+  }
+
+  pauseTimer() {
+    if (this.isActive) {
+      this.isActive = false;
+      clearInterval(this.watchId);
+      this.watchId = null;
+      this.startTime = Date.now() - this.deltaTime;
+      this.showTime({ min, sec, ms });
+    }
+  }
+
+  onStart() {
+    startBtn.addEventListener("click", () => this.startTimer());
+  }
+
+  onPause() {
+     pauseBtn.addEventListener('click', () => {
+       this.isActive = false;
+       this.pauseTimer();
+       pauseBtn.textContent = "Continue";
+     })
+  }
+
+  onContinue() {
+    pauseBtn.addEventListener("click", () => {
+      if (pauseBtn.textContent === "Continue") {
+        this.startTimer();
+        pauseBtn.textContent = "Pause";
+      }
+    });
+  }
+
+  onStop() {
+    stopBtn.addEventListener("click", () => this.stopTimer());
+  }
+
+  onLap() {
+    stopBtn.addEventListener("click", () => {
+      if (stopBtn.textContent === "Reset") {
+       
+        const newLap = document.createElement("li");
+        newLap.textContent = time.textContent;
+        laps.appendChild(newLap);
+        stopBtn.textContent = 'Lap';
+      }
+    });
   }
 }
 
-const watch = new Watch({ showTime: updateWatch });
-
-function updateWatch({ min, sec, ms }) {
-  time.textContent = `${min}:${sec}.${ms}`;
-}
-
-startBtn.addEventListener("click", watch.onStart.bind(watch));
-
-pauseBtn.addEventListener("click", watch.onPause.bind(watch));
-
-stopBtn.addEventListener("click", watch.onStop.bind(watch));
+const watch = new Watch(body);
