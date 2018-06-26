@@ -99,8 +99,7 @@ class Watch {
     if (this.isActive) {
       this.isActive = false;
       clearInterval(this.watchId);
-      this.watchId = null;
-      this.startTime = Date.now() - this.deltaTime;
+      // this.watchId = null;
       this.showTime({
         min,
         sec,
@@ -124,6 +123,7 @@ class Watch {
   onContinue() {
     pauseBtn.addEventListener("click", () => {
       if (pauseBtn.textContent === "Continue") {
+        this.startTime = Date.now() - this.deltaTime;
         this.startTimer();
         pauseBtn.textContent = "Pause";
       }
