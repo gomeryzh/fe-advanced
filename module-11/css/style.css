@@ -14,7 +14,9 @@ img {
     max-width: 100%;
     height: auto;
 }
-
+ul {
+    list-style: none;
+}
 .card {
     max-width: 600px;
     position: relative;

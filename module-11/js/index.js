@@ -98,5 +98,54 @@ const source = document.querySelector('#laptop-card').innerHTML.trim();
 const template = Handlebars.compile(source);
 
 const markup = laptops.reduce((acc, laptop) => acc + template(laptop), '');
+// console.log(markup);
 
 grid.insertAdjacentHTML('beforeend', markup);
+
+const filter = { size: [], color: [], releaseDate: [] };
+
+const filterCheckboxes = () => {
+  const checkboxes = document.querySelectorAll('input[type=checkbox]');
+  event.preventDefault();
+  const checkboxesArr = Array.from(checkboxes);
+  // console.log(checkboxesArr);
+  checkboxesArr.forEach(function(item) {
+    if(item.checked & item.name === 'size') {
+      filter.size.push(item.value);
+    }
+    if(item.checked & item.name === 'color') {
+      filter.color.push(item.value);
+    }
+    if(item.checked & item.name === 'release_date') {
+      filter.releaseDate.push(item.value);
+    }
+  });
+  console.log(filter);
+}
+
+// console.log(filter);
+
+const refreshCheckboxes = () => {
+  filterCheckboxes();
+  const newLaptops = laptops.filter(comp => {
+    if(comp.size === filter.size) {
+      comp;
+    }
+    if(comp.color === filter.color) {
+      comp;
+    }
+    if(comp.releaseDate === filter.releaseDate) {
+      comp;
+    }
+  });
+  console.log(newLaptops);
+  const newMarkup = template(newLaptops);
+  console.log(newMarkup);
+  grid.insertAdjacentHTML('beforeend', newMarkup);
+}
+
+
+
+
+const form = document.querySelector('.js-form');
+form.addEventListener('submit', refreshCheckboxes);
