@@ -140,7 +140,6 @@ const refreshCheckboxes = () => {
     return matchSize && matchColor && matchReleaseDate; 
   });
 
- 
   console.log("filteredLaptops: ", filteredLaptops);
   const newMarkup = filteredLaptops.reduce(
     (acc, laptop) => acc + template(laptop),
