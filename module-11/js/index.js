@@ -94,32 +94,35 @@ const laptops = [
 ];
 
 const grid = document.querySelector("#root");
-
 const source = document.querySelector("#laptop-card").innerHTML.trim();
 const template = Handlebars.compile(source);
 
 const filter = { size: [], color: [], releaseDate: [] };
 
-const startMarkup = () => {
+const resetMarkup = () => {
   const markup = laptops.reduce((acc, laptop) => acc + template(laptop), "");
   grid.insertAdjacentHTML("beforeend", markup);
-}; 
+  filter.size = [];
+  filter.color = [];
+  filter.releaseDate = [];
+};
 
-startMarkup();
+resetMarkup();
 
 const filterCheckboxes = () => {
-  const checkboxes = document.querySelectorAll("input[type=checkbox]");
-  event.preventDefault();
+  const checkboxes = document.querySelectorAll("input[type=checkbox]:checked");
   const checkboxesArr = Array.from(checkboxes);
   checkboxesArr.forEach(function(item) {
-    if (item.checked & (item.name === "size")) {
-      filter.size.push(item.value);
-    }
-    if (item.checked & (item.name === "color")) {
-      filter.color.push(item.value);
-    }
-    if (item.checked & (item.name === "release_date")) {
-      filter.releaseDate.push(item.value);
+    switch (item.name) {
+      case "size":
+        filter.size.push(item.value);
+        break;
+      case "color":
+        filter.color.push(item.value);
+        break;
+      case "release_date":
+        filter.releaseDate.push(item.value);
+        break;
     }
   });
   console.log(filter);
@@ -130,14 +133,15 @@ const matchArray = (arr, value) => {
   return arr.includes(String(value));
 };
 
-const refreshCheckboxes = () => {
+const refreshCheckboxes = (event) => {
+  event.preventDefault();
   filterCheckboxes();
   const filteredLaptops = laptops.filter(laptop => {
     const matchSize = matchArray(filter.size, laptop.size);
     const matchColor = matchArray(filter.color, laptop.color);
     const matchReleaseDate = matchArray(filter.releaseDate, laptop.releaseDate);
 
-    return matchSize && matchColor && matchReleaseDate; 
+    return matchSize && matchColor && matchReleaseDate;
   });
 
   console.log("filteredLaptops: ", filteredLaptops);
@@ -145,10 +149,10 @@ const refreshCheckboxes = () => {
     (acc, laptop) => acc + template(laptop),
     ""
   );
-  grid.innerHTML = '';
+  grid.innerHTML = "";
   grid.insertAdjacentHTML("beforeend", newMarkup);
 };
 
 const form = document.querySelector(".js-form");
 form.addEventListener("submit", refreshCheckboxes);
-form.addEventListener('reset', startMarkup);
+form.addEventListener("reset", resetMarkup);
