@@ -15,13 +15,13 @@ body {
 .stopwatch {
   padding: 30px;
   text-align: center;
-  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
-  color: #212121;
+  box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.5);
+  color: #353434;
   border-radius: 2px;
 }
 
 .time {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   font-family: 'Roboto Mono', monospace;
   font-size: 80px;
 }
@@ -30,24 +30,24 @@ body {
   display: inline;
   text-transform: uppercase;
   border: 0;
-  background-color: #212121;
-  color: #ffffff;
-  padding: 10px 20px;
+  background-color: #3d3a3a;
+  color: #ecdddd;
+  padding: 15px 30px;
   cursor: pointer;
-  font-size: 28px;
-  border-radius: 2px;
+  font-size: 30px;
+  border-radius: 4px;
   font-family: 'Roboto', sans-serif;
 }
 
 .active {
-  background-color: #2196f3;
+  background-color: teal;
 }
 
 .item {
-  padding: 10px;
+  padding: 15px;
   text-align: center;
-  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
-  color: #212121;
-  border-radius: 2px;
+  box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.5);
+  color: #494343;
+  border-radius: 4px;
   list-style: none;
 }
